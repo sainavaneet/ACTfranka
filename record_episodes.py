@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLa
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer
 from sensor_msgs.msg import Image
-from controler.robot_state import *
+from controller.robot_state import *
 from panda_kinematics import PandaWithPumpKinematics
 from gazebo_msgs.srv import SetModelState, SetModelStateRequest
 from std_srvs.srv import Empty

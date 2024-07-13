@@ -11,7 +11,7 @@ from settings.var import POLICY_CONFIG, TASK_CONFIG, TRAIN_CONFIG
 from tqdm import tqdm
 import time
 from gazebo_msgs.srv import SetModelState, SetModelStateRequest 
-from controler.robot_state import *
+from controller.robot_state import *
 import random
 from std_srvs.srv import Empty
 from simulate import Simulator

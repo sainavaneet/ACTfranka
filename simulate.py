@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 import rospy
-from controler.robot_state import RobotController
+from controller.robot_state import RobotController
 from panda_kinematics import PandaWithPumpKinematics
 from settings.var import GRIPPER_FORCE, BOX_Z
 from std_msgs.msg import String
