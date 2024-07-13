@@ -63,8 +63,8 @@ class RobotController:
                 # rospy.loginfo("Target positions reached.")
                 break
             rospy.sleep(0.1)
-        else:
-            rospy.logwarn("Timeout reached before reaching the target positions.")
+        # else:
+        #     rospy.logwarn("Timeout reached before reaching the target positions.")
 
     def positions_close_enough(self, current, target):
         if None in current:
@@ -114,7 +114,7 @@ class RobotController:
 
         # Publish the message
         self.grasp_publisher.publish(action_goal)
-        rospy.loginfo("Published grasp goal to /franka_gripper/grasp/goal")
+        # rospy.loginfo("Published grasp goal to /franka_gripper/grasp/goal")
 
 
     def initial_pose(self):

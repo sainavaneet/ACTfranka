@@ -137,7 +137,7 @@ class PandaRobotTask:
     def perform_task(self):
         while self.success_count < TOTAL_EPISODES:
             self.franka.move_to_joint_position(self.initial_positions)
-            self.operate_gripper(INITAL_GRIPPER_POSE, GRIPPER_FORCE)  # OPEN_GRIPPER_POSE gripper
+            self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)  # OPEN_GRIPPER_POSE gripper
 
             self.camera_controller.start_recording()
             self.camera_controller.log_box_position(self.new_x, self.new_y, BOX_Z)

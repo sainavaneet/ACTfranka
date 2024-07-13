@@ -17,9 +17,9 @@ from std_srvs.srv import Empty
 from settings.var import *
 from gazebo_msgs.srv import GetModelState, GetModelStateRequest
 from threading import Lock
-
+from rich.progress import Progress
 import tqdm
-
+import time
 class CameraController:
     def __init__(self, franka):
         self.bridge = cv_bridge.CvBridge()
@@ -50,18 +50,17 @@ class CameraController:
                 # print(f"Added front frame {len(self.data_front)}")
 
                 joint_angles = list(self.franka.angles())
-                # Append gripper status: 0 for open, 1 for grasp
+               
                 gripper_status = 1 if self.gripper_width == GRASP else 0
                 joint_angles.append(gripper_status)
                 self.joint_positions.append(joint_angles)
 
-                # Printing the gripper status; if it's 1, print a noticeable message
-                if joint_angles[-1] == 1:  # Check if the last element (gripper status) is 1
-                    print("####################################################")
-                    print("### GRIPPER IS IN GRASP POSITION - STATUS: [1] ###")
-                    print("####################################################")
-                else:
-                    print(f"Gripper status is [0], indicating it is open.")
+                # if joint_angles[-1] == 1:  # Check if the last element (gripper status) is 1
+                #     print("####################################################")
+                #     print("### GRIPPER IS IN GRASP POSITION - STATUS: [1] ###")
+                #     print("####################################################")
+                # else:
+                #     print(f"Gripper status is [0], indicating it is open.")
 
 
     def save_data(self):
@@ -90,14 +89,14 @@ class CameraController:
             obs.create_dataset('box_positions', data=box_positions)
             action_data = np.array(self.joint_positions, dtype='float64')
             root.create_dataset('action', data=action_data)
-            print("="*50)
-            print(f"Top camera image data shape: {np.array(self.data_top).shape}")
-            print(f"Front camera image data shape: {np.array(self.data_front).shape}")
-            print(f"Joint positions shape: {qpos.shape}")
-            print(f"Box positions shape: {box_positions.shape}")
-            print(f"Action data shape: {action_data.shape}")
-        print(f"Data saved to {file_path}.")
-        print("="*50)
+        #     print("="*50)
+        #     print(f"Top camera image data shape: {np.array(self.data_top).shape}")
+        #     print(f"Front camera image data shape: {np.array(self.data_front).shape}")
+        #     print(f"Joint positions shape: {qpos.shape}")
+        #     print(f"Box positions shape: {box_positions.shape}")
+        #     print(f"Action data shape: {action_data.shape}")
+        # print(f"Data saved to {file_path}.")
+        # print("="*50)
 
     def start_recording(self):
         self.recording = True
@@ -131,12 +130,15 @@ class RobotTask:
         self.success_count = 0
         self.new_x = 0.5
         self.new_y = -0.2
+
+
         self.franka.move_to_joint_position(self.initial_positions)
+
         self.set_box_position(self.new_x, self.new_y, BOX_Z)
         self.success_threshold = OPEN_GRIPPER_POSE
         self.endpoint = np.array([0.44, 0.2, 0.05])
-        self.operate_gripper(GRASP, GRIPPER_FORCE)  # Ensure gripper is OPEN_GRIPPER_POSE initially
-        self.gripper_width = GRASP  # Initial gripper width
+        self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)  
+        self.gripper_width = OPEN_GRIPPER_POSE  
         self.ori = np.array([np.pi, np.pi/2, 0.0, 0.0])
 
 
@@ -151,64 +153,51 @@ class RobotTask:
 
 
     def perform_task(self):
-        while self.success_count < TOTAL_EPISODES:
-            self.franka.move_to_joint_position(self.initial_positions)
-            self.operate_gripper(INITAL_GRIPPER_POSE, GRIPPER_FORCE)  # OPEN_GRIPPER_POSE gripper
+        with Progress() as progress:
+            task_id = progress.add_task("[green]Generating episodes...", total=TOTAL_EPISODES)
 
-            self.camera_controller.start_recording()
-            self.camera_controller.log_box_position(self.new_x, self.new_y, BOX_Z)
+            while self.success_count < TOTAL_EPISODES:
+                self.franka.move_to_joint_position(self.initial_positions)
+                self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)
 
-            pre_pick_pos, pick_pos = self.update_box_pos(self.new_x, self.new_y)
-            orientation_quat = np.array([np.pi, np.pi/2, 0, 0], dtype=np.float64)
-            current_joint_angles = np.array(list(self.franka.angles()), dtype=np.float64)
-            solution = self.solve_kinematics(current_joint_angles, pre_pick_pos, orientation_quat)
-            print(solution.tolist())
+                self.camera_controller.start_recording()
+                self.camera_controller.log_box_position(self.new_x, self.new_y, BOX_Z)
 
-            if solution is None:
-                self.reset_episode()
-                continue
+                pre_pick_pos, pick_pos = self.update_box_pos(self.new_x, self.new_y)
+                orientation_quat = np.array([np.pi, np.pi/2, 0, 0], dtype=np.float64)
+                current_joint_angles = np.array(list(self.franka.angles()), dtype=np.float64)
+                solution = self.solve_kinematics(current_joint_angles, pre_pick_pos, orientation_quat)
 
-            self.move(solution)
-            self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)  # Ensure gripper is OPEN_GRIPPER_POSE initially
+                if solution is None:
+                    self.reset_episode()
+                    continue
 
+                self.move(solution)
+                self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)
 
+                solution = self.solve_kinematics(current_joint_angles, pick_pos, orientation_quat)
+                if solution is None:
+                    self.reset_episode()
+                    continue
 
-            solution = self.solve_kinematics(current_joint_angles, pick_pos, orientation_quat)
-            if solution is None:
-                self.reset_episode()
-                continue
+                self.move(solution)
+                self.camera_controller.gripper_width = GRASP
+                self.franka.grasp(0.025, 28)
+                self.move_up(pick_pos)
+                self.place_pose()
+                self.camera_controller.stop_recording(save=False)
 
-            self.move(solution)
-            
-            self.camera_controller.gripper_width = GRASP  
+                if self.check_success():
+                    self.camera_controller.save_data()
+                    self.success_count += 1
+                    progress.update(task_id, description=f"[green]Generating episodes... [white](Success: {self.success_count})", advance=1)
+                else:
+                    self.camera_controller.log_failed_box_positions(self.new_x, self.new_y, BOX_Z)
+                    print("\033[91mEpisode Failed\033[0m")
 
-            self.franka.grasp(0.025 , 28)
-
-
-            self.move_up(pick_pos)
-            
-            self.place_pose()
-
-            self.camera_controller.stop_recording(save=False)
-            if self.check_success():
-                print("Episode successful: Box is successfully placed.")
-                self.camera_controller.save_data()
-                self.success_count += 1
-            else:
-                self.camera_controller.log_failed_box_positions(self.new_x , self.new_y , BOX_Z)
-                print("<>"*TOTAL_EPISODES)
-                print("Episode failed: Not recording the episode")
-                print("<>"*TOTAL_EPISODES)
-
-
-            self.new_x, self.new_y = self.generate_cordinate()
-            
-
-            
-            self.set_box_position(self.new_x, self.new_y, BOX_Z)
-            self.franka.move_to_joint_position(self.initial_positions)
-
-    
+                self.new_x, self.new_y = self.generate_cordinate()
+                self.set_box_position(self.new_x, self.new_y, BOX_Z)
+                self.franka.move_to_joint_position(self.initial_positions)
 
     def set_box_position(self, x, y, z):
         rospy.wait_for_service('/gazebo/set_model_state')
@@ -259,7 +248,7 @@ class RobotTask:
     def move_up(self , pick_pose):
 
         joint_positions = np.zeros(7)
-        print(pick_pose.tolist())
+        # print(pick_pose.tolist())
         pick_pose[2] += 0.1
 
         solution = self.solve_kinematics(joint_positions ,pick_pose , self.ori)
@@ -278,7 +267,6 @@ class RobotTask:
     def move(self, solution):
         if solution is not None:
             self.franka.move_to_joint_position(solution.tolist())
-        # Log the action after update
 
 
     def check_success(self):

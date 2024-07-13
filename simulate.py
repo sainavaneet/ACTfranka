@@ -7,18 +7,16 @@ from panda_kinematics import PandaWithPumpKinematics
 from settings.var import GRIPPER_FORCE, BOX_Z
 from std_msgs.msg import String
 from gazebo_msgs.srv import SetModelState, SetModelStateRequest
+from rich.progress import Progress
 
-
+import progressbar
 class Simulator:
     def __init__(self, file_path='actions.csv'):
         
-        if not rospy.core.is_initialized():
-            rospy.init_node('simulator_node', anonymous=True)
-
         self.franka = RobotController()
         self.kinematics = PandaWithPumpKinematics()
         self.data = pd.read_csv(file_path, header=None, skiprows=1)
-        self.gripper_entered_high_position = False
+        self.gripper_grasp_position = False
         self.franka.initial_pose()
 
     def set_box_position(self, x, y, z):
@@ -47,19 +45,31 @@ class Simulator:
         y = random.uniform(min_y, max_y)
         return x, y
 
-    def simulate(self):
-        for index, row in self.data.iterrows():
-            if index % 25 == 0:
-                joint_positions = row[:7].tolist()
-                gripper_position = row[7]
-                self.franka.move_to_joint_position(joint_positions)
 
-                if not self.gripper_entered_high_position:
-                    if gripper_position > 0.9:
-                        self.franka.grasp(0.025, 15)
-                        self.gripper_entered_high_position = True
-                    else:
-                        self.franka.exec_gripper_cmd(0.08, GRIPPER_FORCE)
+
+
+    def simulate(self):
+        with Progress() as progress:
+            task = progress.add_task("[green]Simulating...", total=len(self.data))
+            
+            for index, row in self.data.iterrows():
+                
+                progress.update(task, advance=1)
+            
+                if index % 25 == 0:
+                    
+                    joint_positions = row[:7].tolist()
+                    gripper_position = row[7]
+                    
+                   
+                    self.franka.move_to_joint_position(joint_positions)
+
+                    if not self.gripper_grasp_position:
+                        if gripper_position > 0.9:
+                            self.franka.grasp(0.025, 15)
+                            self.gripper_grasp_position = True
+                        else:
+                            self.franka.exec_gripper_cmd(0.08, GRIPPER_FORCE)
 
         self.franka.exec_gripper_cmd(0.08)
         joint_positions = np.zeros(7)
@@ -68,3 +78,13 @@ class Simulator:
         solution = self.kinematics.ik(joint_positions, pos, quat)
         self.franka.move_to_joint_position(solution)
         self.franka.initial_pose()
+
+
+if __name__ == "__main__":
+    try:
+    
+        simulator = Simulator(file_path='actions.csv')  
+        simulator.simulate()
+    
+    except rospy.ROSInterruptException:
+        pass

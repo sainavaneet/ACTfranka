@@ -12,7 +12,7 @@ DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/test"
 
 # Initial configuration
 INITIAL_JOINTS = [0, -0.7, 0, -2.35619449, 0, 1.57079632679, 0.785398163397]
-OPEN_GRIPPER_POSE = 0.06
+OPEN_GRIPPER_POSE = 0.08
 GRASP = 0.025
 GRIPPER_FORCE = 0.12
 INITIAL_GRIPPER_POSE = 0.06
