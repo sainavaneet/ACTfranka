@@ -8,7 +8,7 @@ import torch
 
 # checkpoint directory
 #CHECKPOINT_DIR = 'checkpoints2/'
-CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/checkpoints'
+CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/checkpoints2'
 # CHECKPOINT_DIR = 'testing_files'
 
 # device
@@ -56,7 +56,7 @@ POLICY_CONFIG = {
     'device': device,
     'num_queries': MAX_STEPS,
     'kl_weight': 100,
-    'hidden_dim': 512,
+    'hidden_dim': 256,
     'dim_feedforward': 3200,
     'lr_backbone': 1e-5,
     'backbone': 'resnet18',

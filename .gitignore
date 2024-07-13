@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 checkpoints/
+checkpoints2/
+
 datasets/
 
 
