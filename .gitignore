@@ -2,6 +2,12 @@
 *.d
 checkpoints/
 datasets/
+
+# Do not ignore specific files in the checkpoints directory
+!checkpoints/dataset_stats.pkl
+!checkpoints/policy_last.ckpt
+
+
 # Object files
 *.o
 *.ko

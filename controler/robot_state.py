@@ -37,7 +37,7 @@ class RobotController:
     def move_to_joint_position(self, angles, timeout=5):
         if len(angles) != 7:
             raise ValueError("Exactly 7 angles must be provided.")
-        rospy.loginfo("Moving robot to specified angles...")
+        # rospy.loginfo("Moving robot to specified angles...")
         
         trajectory_msg = JointTrajectory()
         trajectory_msg.joint_names = self.joints
@@ -50,7 +50,7 @@ class RobotController:
         trajectory_msg.points.append(point)
 
         self.trajectory_publisher.publish(trajectory_msg)
-        rospy.loginfo("Command published to move the robot.")
+        # rospy.loginfo("Command published to move the robot.")
 
         start_time = rospy.Time.now()
         while (rospy.Time.now() - start_time).to_sec() < timeout:
@@ -60,7 +60,7 @@ class RobotController:
                 continue
 
             if self.positions_close_enough(self.current_positions, angles):
-                rospy.loginfo("Target positions reached.")
+                # rospy.loginfo("Target positions reached.")
                 break
             rospy.sleep(0.1)
         else:
@@ -117,7 +117,7 @@ class RobotController:
         rospy.loginfo("Published grasp goal to /franka_gripper/grasp/goal")
 
 
-    def inital_pose(self):
+    def initial_pose(self):
 
         angles = [0, 
                          -0.785398163, 

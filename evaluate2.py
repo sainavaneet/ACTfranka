@@ -14,9 +14,13 @@ from gazebo_msgs.srv import SetModelState, SetModelStateRequest
 from controler.robot_state import *
 import random
 from std_srvs.srv import Empty
-
+from simulate import Simulator
 from settings.var import *
+
+
 bridge = CvBridge()
+
+
 
 
 import subprocess
@@ -49,7 +53,7 @@ def generate_cordinate():
         return x , y
 
 
-set_box_position(0.46 , -0.25 , BOX_Z)
+set_box_position(0.38 , -0.2 , BOX_Z)
 
 
 def image_callback(msg):
@@ -77,7 +81,7 @@ device = torch.device('cuda')
 
 if __name__ == "__main__":
     franka = RobotController()
-    franka.inital_pose()
+    franka.initial_pose()
 
 
     # box_x , box_y = generate_cordinate()
@@ -197,4 +201,8 @@ if __name__ == "__main__":
             # rospy.loginfo("Actions have been saved to file.")
 
 
+simulator = Simulator()
+
+
+simulator.simulate()
 
