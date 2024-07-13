@@ -17,7 +17,7 @@ if torch.cuda.is_available(): device = 'cuda'
 #if torch.backends.mps.is_available(): device = 'mps'
 os.environ['DEVICE'] = device
 
-DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed"
+DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/test"
 
 DATA_DIR = DATASET_DIR
 

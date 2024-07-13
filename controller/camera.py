@@ -48,9 +48,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     
     # Camera 1 Window
-    window1 = MainWindow("Camera 1 View")
+    window1 = MainWindow("Top Camera View")
     # Camera 2 Window
-    window2 = MainWindow("Camera 2 View")
+    window2 = MainWindow("Front Camera View")
 
     processor = ImageProcessor()
     processor.image_signal1.connect(window1.set_image)
