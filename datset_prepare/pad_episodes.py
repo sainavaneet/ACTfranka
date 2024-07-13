@@ -29,7 +29,7 @@ def pad_or_truncate(data, target_length, pad_value=None):
 def process_and_save_datasets(source_directory, target_directory, target_length):
     """ Process all HDF5 files, truncate or pad datasets as needed, and save them after reducing frame rate. """
     if not os.path.exists(target_directory):
-        os.makedirs(target_directory)  # Create target directory if it doesn't exist
+        os.makedirs(target_directory)  
     
     files = [f for f in os.listdir(source_directory) if f.endswith('.hdf5')]
     for filename in tqdm(files, desc="Processing files"):
@@ -41,13 +41,13 @@ def process_and_save_datasets(source_directory, target_directory, target_length)
             obs = root.create_group('observations')
             images = obs.create_group('images')
             
-            # Reduce frame rate by taking every 2nd timestep for top camera images
+           
             if 'observations/images/top' in file:
                 top_image_data = np.array(file['observations/images/top'])[::2]
                 top_image_data = pad_or_truncate(top_image_data, target_length)
                 images.create_dataset('top', data=top_image_data, dtype='uint8', chunks=(1, 480, 640, 3))
             
-            # Reduce frame rate by taking every 2nd timestep for front camera images
+           
             if 'observations/images/front' in file:
                 front_image_data = np.array(file['observations/images/front'])[::2]
                 front_image_data = pad_or_truncate(front_image_data, target_length)

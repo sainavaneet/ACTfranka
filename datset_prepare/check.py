@@ -2,15 +2,15 @@ import h5py
 
 def explore_hdf5_group(group, indent=0):
     """ Recursively explore groups and datasets in the HDF5 file """
-    indent_str = '    ' * indent  # Indentation for pretty printing
+    indent_str = '    ' * indent  
     try:
         for key in group:
             item = group[key]
             print(f"{indent_str}{key}: {item}")
             if isinstance(item, h5py.Dataset):
-                # Print dataset shape and datatype; comment the next line to print dataset contents
+                
                 print(f"{indent_str}  - Shape: {item.shape}, Type: {item.dtype}")
-                # Uncomment the following line to print actual data (might be memory intensive)
+                
                 # print(f"{indent_str}  Data: {item[...]}")
             elif isinstance(item, h5py.Group):
                 explore_hdf5_group(item, indent + 1)
