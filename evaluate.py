@@ -49,8 +49,8 @@ def generate_cordinate():
         return x , y
 
 
-set_box_position(0.48 , -0.22 , BOX_Z)
-
+set_box_position(0.48 , -0.2, BOX_Z)
+rospy.sleep(1)
 
 def image_callback(msg):
     try:
