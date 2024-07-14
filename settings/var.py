@@ -7,8 +7,8 @@ if torch.cuda.is_available():
 os.environ['DEVICE'] = device
 
 # Paths
-CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/checkpoints2'
-DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/test"
+CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/checkpoints'
+DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed"
 
 # Initial configuration
 INITIAL_JOINTS = [0, -0.7, 0, -2.35619449, 0, 1.57079632679, 0.785398163397]
@@ -53,7 +53,7 @@ POLICY_CONFIG = {
 # Training configuration
 TRAIN_CONFIG = {
     'seed': 42,
-    'num_epochs': 20000,
+    'num_epochs': 5000,
     'batch_size_val': 8,
     'batch_size_train': 8,
     'eval_ckpt_name': 'policy_last.ckpt',

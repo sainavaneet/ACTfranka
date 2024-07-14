@@ -16,14 +16,10 @@ import random
 from std_srvs.srv import Empty
 from simulate import Simulator
 from settings.var import *
-
+import subprocess
 
 bridge = CvBridge()
 
-
-
-
-import subprocess
 
 def set_box_position(x, y, z):
         rospy.wait_for_service('/gazebo/set_model_state')
@@ -53,7 +49,7 @@ def generate_cordinate():
         return x , y
 
 
-set_box_position(0.38 , -0.2 , BOX_Z)
+set_box_position(0.48 , -0.22 , BOX_Z)
 
 
 def image_callback(msg):

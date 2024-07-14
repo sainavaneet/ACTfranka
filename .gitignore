@@ -2,6 +2,10 @@
 *.d
 checkpoints/
 checkpoints2/
+checkpoints3/
+checkpoints4/
+
+
 
 datasets/
 
