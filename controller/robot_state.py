@@ -45,7 +45,7 @@ class RobotController:
         point.positions = angles
         point.velocities = [0.0] * 7
         point.accelerations = [0.0] * 7
-        point.time_from_start = rospy.Duration(3)
+        point.time_from_start = rospy.Duration(5)
         rospy.sleep(0.5)
         trajectory_msg.points.append(point)
 

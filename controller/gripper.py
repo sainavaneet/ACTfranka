@@ -12,7 +12,7 @@ def listen_to_tf():
             listener.waitForTransform("/fr3_link0", "fr3_EE", rospy.Time(), rospy.Duration(4.0))
             (trans, rot) = listener.lookupTransform('/fr3_link0', 'fr3_EE', rospy.Time(0))
             print("Translation: ", trans)
-            # print("Rotation: ", rot)
+            print("Rotation: ", rot)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException) as e:
             print("Error: ", e)
 

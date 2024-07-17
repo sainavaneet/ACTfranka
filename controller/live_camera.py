@@ -25,20 +25,6 @@ while True:
         print("Error: Failed to capture image.")
         break
 
-    if use_cuda:
-        # Upload the frame to GPU
-        gpu_frame = cv2.cuda_GpuMat()
-        gpu_frame.upload(frame)
-
-        # Perform some CUDA operations (e.g., convert to grayscale)
-        gpu_gray = cv2.cuda.cvtColor(gpu_frame, cv2.COLOR_BGR2GRAY)
-
-        # Download the processed frame back to CPU
-        frame = gpu_gray.download()
-        # Convert grayscale frame back to BGR for displaying
-        frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
-
-    # Display the resulting frame
     cv2.imshow('Live Camera Feed', frame)
 
     # Press 'q' to exit the camera view
