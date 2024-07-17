@@ -30,7 +30,7 @@ class Simulator:
                 
                 progress.update(task, advance=1)
             
-                if index % 25 == 0:
+                if index % 30 == 0:
                     
                     joint_positions = row[:7].tolist()
                     gripper_position = row[7]
@@ -40,16 +40,12 @@ class Simulator:
 
                     if not self.gripper_grasp_position:
                         if gripper_position > 0.9:
-                            self.franka.exec_gripper_cmd(0.025, 0.5)
+                            self.franka.exec_gripper_cmd(0.027, 0.8)
                             self.gripper_grasp_position = True
                         else:
-                            self.franka.exec_gripper_cmd(0.08, GRIPPER_FORCE)
+                            self.franka.exec_gripper_cmd(0.08, 1)
         self.place.place_simulate()
             
-
-
-
-
 
 
 if __name__ == "__main__":

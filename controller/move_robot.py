@@ -9,7 +9,7 @@ def perform_trajectory():
     
     
     robot = RobotController()
-    robot.exec_gripper_cmd(0.08 ,0.5)
+    # robot.grasp(0.025, 2)
 
     robot.initial_pose()
     # robot.exec_gripper_cmd(0.08 ,0.5)

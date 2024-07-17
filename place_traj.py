@@ -37,7 +37,7 @@ class PlaceTraj:
 
                     if not self.gripper_grasp_position:
                         if gripper_position > 0.9:
-                            self.franka.exec_gripper_cmd(0.03, 1)
+                            self.franka.exec_gripper_cmd(0.027, 0.8)
                             self.gripper_grasp_position = True
                         else:
                             self.franka.exec_gripper_cmd(0.08, 1)
