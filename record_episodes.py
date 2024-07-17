@@ -20,6 +20,8 @@ from threading import Lock
 from rich.progress import Progress
 import tqdm
 import time
+
+
 class CameraController:
     def __init__(self, franka):
         self.bridge = cv_bridge.CvBridge()

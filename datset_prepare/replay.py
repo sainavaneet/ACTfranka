@@ -36,9 +36,12 @@ def play_images_from_hdf5_opencv(file_path, group_name, dataset_name, joint_posi
 if __name__ == '__main__':
 
     episode_number = input("Episode Number to replay: ")
-    hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed/episode_{episode_number}.hdf5'
+    # hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed/episode_{episode_number}.hdf5'
+    hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/episode_5.hdf5'
+
+    
     group_name = 'observations'
     images_dataset_name = 'images/top'
     joint_positions_dataset_name = 'qpos'
-    frame_rate = 30  
+    frame_rate = 60  
     play_images_from_hdf5_opencv(hdf5_path, group_name, images_dataset_name, joint_positions_dataset_name, frame_rate)

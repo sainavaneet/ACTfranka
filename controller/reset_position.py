@@ -34,7 +34,7 @@ def perform_trajectory():
     trajectory_msg.points[0].positions = goal_positions
     trajectory_msg.points[0].velocities = [0.0 for _ in fr3_joints] 
     trajectory_msg.points[0].accelerations = [0.0 for _ in fr3_joints]
-    trajectory_msg.points[0].time_from_start = rospy.Duration(10)
+    trajectory_msg.points[0].time_from_start = rospy.Duration(5)
     rospy.sleep(1)
 
     trajectory_publisher.publish(trajectory_msg)

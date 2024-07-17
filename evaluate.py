@@ -49,7 +49,7 @@ def generate_cordinate():
         return x , y
 
 
-set_box_position(0.38 , -0.182, BOX_Z)
+set_box_position(0.4 , -0.28182, BOX_Z)
 rospy.sleep(1)
 
 def image_callback(msg):

@@ -18,7 +18,7 @@ def explore_hdf5_group(group, indent=0):
         print(f"{indent_str}Error: Object {group} is not a group or dataset")
 
 # Open the HDF5 file
-file_path = '/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed/episode_10.hdf5'
+file_path = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/episode_3.hdf5'
 with h5py.File(file_path, 'r') as file:
     print("Contents of the HDF5 file:")
     explore_hdf5_group(file)
