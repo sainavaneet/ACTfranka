@@ -56,10 +56,7 @@ def process_and_save_datasets(source_directory, target_directory, target_length)
             qpos = np.array(file['observations/qpos'])[::2]
             qpos = pad_or_truncate(qpos, target_length)
             obs.create_dataset('qpos', data=qpos)
-            
-            box_positions = np.array(file['observations/box_positions'])[::2]
-            obs.create_dataset('box_positions', data=box_positions)
-            
+
             action_data = qpos
             root.create_dataset('action', data=action_data)
 

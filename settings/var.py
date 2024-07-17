@@ -7,8 +7,8 @@ if torch.cuda.is_available():
 os.environ['DEVICE'] = device
 
 # Paths
-CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/checkpoints'
-DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed"
+CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/checkpoints'
+DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/processed/"
 
 # Initial configuration
 INITIAL_JOINTS = [0, -0.7, 0, -2.35619449, 0, 1.57079632679, 0.785398163397]
@@ -18,7 +18,9 @@ GRIPPER_FORCE = 0.12
 INITIAL_GRIPPER_POSE = 0.06
 TOTAL_EPISODES = 30
 BOX_Z = 0.04
-MAX_STEPS = 262
+MAX_STEPS = 223
+
+CAMERA_NAMES = ['top']
 
 # Task configuration
 TASK_CONFIG = {
@@ -28,7 +30,7 @@ TASK_CONFIG = {
     'action_dim': 8,
     'cam_width': 640,
     'cam_height': 480,
-    'camera_names': ['top', 'front'],
+    'camera_names': CAMERA_NAMES,
     'camera_port': 50,
 }
 
@@ -45,7 +47,7 @@ POLICY_CONFIG = {
     'enc_layers': 4,
     'dec_layers': 7,
     'nheads': 8,
-    'camera_names': ['top', 'front'],
+    'camera_names': CAMERA_NAMES,
     'policy_class': 'ACT',
     'temporal_agg': False,
 }
@@ -53,7 +55,7 @@ POLICY_CONFIG = {
 # Training configuration
 TRAIN_CONFIG = {
     'seed': 42,
-    'num_epochs': 5000,
+    'num_epochs': 20000,
     'batch_size_val': 8,
     'batch_size_train': 8,
     'eval_ckpt_name': 'policy_last.ckpt',
