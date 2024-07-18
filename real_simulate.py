@@ -11,7 +11,7 @@ from rich.progress import Progress
 from place_traj import *
 import progressbar
 class Simulator:
-    def __init__(self, file_path='actions.csv'):
+    def __init__(self, file_path='csv/actions.csv'):
         
         self.franka = RobotController()
         self.kinematics = PandaWithPumpKinematics()
@@ -51,7 +51,7 @@ class Simulator:
 if __name__ == "__main__":
     try:
     
-        simulator = Simulator(file_path='actions.csv')  
+        simulator = Simulator(file_path='csv/actions.csv')  
         simulator.simulate()
     
     except rospy.ROSInterruptException:

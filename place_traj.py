@@ -11,7 +11,7 @@ from rich.progress import Progress
 import progressbar
 
 class PlaceTraj:
-    def __init__(self, file_path='place_traj.csv'):
+    def __init__(self, file_path='csv/place_traj.csv'):
         
         self.franka = RobotController()
         self.data = pd.read_csv(file_path, header=None)
@@ -51,7 +51,7 @@ class PlaceTraj:
 if __name__ == "__main__":
     try:
     
-        simulator = PlaceTraj(file_path='place_traj.csv')  
+        simulator = PlaceTraj(file_path='csv/place_traj.csv')  
         simulator.simulate()
     
     except rospy.ROSInterruptException:
