@@ -11,8 +11,10 @@ def perform_trajectory():
     robot = RobotController()
     # robot.grasp(0.025, 2)
 
-    robot.initial_pose()
-    # robot.exec_gripper_cmd(0.08 ,0.5)
+    # robot.initial_pose()
+    # robot.exec_gripper_cmd(0.055 ,1)
+    robot.exec_gripper_cmd(0.08 ,1)
+
     kinematics = PandaWithPumpKinematics()
     current_position = robot.angles()
     # print(current_position)

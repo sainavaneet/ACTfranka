@@ -27,7 +27,7 @@ class CameraController:
                         print("Recording started.")
                     else:
                         print("Recording stopped. Saving data...")
-                        self.record_extra_frames(10)  # Record additional frames
+                        self.record_extra_frames(10) 
                         self.save_data()
                         self.data = []
                         self.robot_state_data = []
@@ -56,7 +56,7 @@ class CameraController:
             return
 
         episode_idx = 0
-        directory = "real_dir"
+        directory = "real_dir2"
         if not os.path.exists(directory):
             os.makedirs(directory)
         while os.path.exists(os.path.join(directory, f'episode_{episode_idx}.hdf5')):

@@ -21,11 +21,11 @@ class Placetraj:
 
     def save_data(self):
         if self.data:  # Ensure there is data to save.
-            with open('csv/place_actions.csv', 'w', newline='') as file:
+            with open('csv/place_actions2.csv', 'w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(['Angle1', 'Angle2', 'Angle3', 'Angle4', 'Angle5', 'Angle6', 'Angle7', 'Gripper'])
                 writer.writerows(self.data)
-            print("Data successfully saved to 'place_actions.csv'.")
+            print("Data successfully saved to 'place_actions2.csv'.")
 
     def on_press(self, key):
         try:
