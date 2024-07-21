@@ -19,7 +19,7 @@ from settings.var import *
 import subprocess
 from time import sleep
 bridge = CvBridge()
-CAMERA_INDEX = [0, 2]
+CAMERA_INDEX = [0]
 
 def capture_image(camera_index):
     # Open the video capture for the specified camera index
@@ -49,7 +49,7 @@ device = torch.device('cuda')
 
 if __name__ == "__main__":
     franka = RobotController()
-    # franka.initial_pose()
+    franka.initial_pose()
     # sleep(1)
     # rospy.sleep(1)
 
@@ -92,8 +92,10 @@ if __name__ == "__main__":
 # Assign the modified position list to pos
     pos = np.append(position, gripper_width)
 
+    
 
-    camera_indices = {0: "front", 2: "top"}  
+
+    camera_indices = {0: "top"}  
     obs = {
         'qpos': pos,
         'images': {name: capture_image(index) for index, name in camera_indices.items()}
@@ -168,8 +170,8 @@ if __name__ == "__main__":
             # rospy.loginfo("Actions have been saved to file.")
 
 
-# simulator = Simulator()
+simulator = Simulator()
 
 
-# simulator.simulate()
+simulator.simulate()
 

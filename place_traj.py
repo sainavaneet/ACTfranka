@@ -11,10 +11,10 @@ from rich.progress import Progress
 import progressbar
 
 class PlaceTraj:
-    def __init__(self, file_path='csv/place_actions2.csv'):
+    def __init__(self, file_path='csv/place_cube.csv'):
         
         self.franka = RobotController()
-        self.data = pd.read_csv(file_path, header=None , skiprows=1)
+        self.data = pd.read_csv(file_path, header=None , skiprows=2)
         self.gripper_grasp_position = False
 
 
@@ -29,7 +29,7 @@ class PlaceTraj:
                 
                 progress.update(task, advance=1)
             
-                if index % 2 == 0:
+                if index % 4 == 0:
                     
                     joint_positions = row[:7].tolist()
                     gripper_position = row[7]
@@ -50,7 +50,7 @@ class PlaceTraj:
 if __name__ == "__main__":
     try:
     
-        simulator = PlaceTraj(file_path='csv/place_actions2.csv')  
+        simulator = PlaceTraj(file_path='csv/place_cube.csv')  
         simulator.place_simulate()
     
     except rospy.ROSInterruptException:
