@@ -17,28 +17,25 @@ from std_srvs.srv import Empty
 from real_simulate import Simulator
 from settings.var import *
 import subprocess
-from time import sleep
-bridge = CvBridge()
-CAMERA_INDEX = [0, 2]
 
-def capture_image(camera_index):
+bridge = CvBridge()
+
+
+def capture_image():
     # Open the video capture for the specified camera index
-    cap = cv2.VideoCapture(camera_index)
+    cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        rospy.logerr(f"Cannot open camera {camera_index}")
+        rospy.logerr("Cannot open camera")
         return None
 
-    
+    # Capture a single frame
     ret, frame = cap.read()
-    
+    # Check if the frame is returned successfully
     if not ret:
         rospy.logerr("Can't receive frame (stream end?). Exiting ...")
         return None
-    # Release the camera
-    cap.release()
-
+    
     return frame
-
 
 
 # Configuration
@@ -49,9 +46,7 @@ device = torch.device('cuda')
 
 if __name__ == "__main__":
     franka = RobotController()
-    # franka.initial_pose()
-    # sleep(1)
-    # rospy.sleep(1)
+    franka.initial_pose()
 
     ckpt_path = os.path.join(train_cfg['checkpoint_dir'], train_cfg['eval_ckpt_name'])
     policy = make_policy(policy_config['policy_class'], policy_config)
@@ -93,14 +88,12 @@ if __name__ == "__main__":
     pos = np.append(position, gripper_width)
 
 
-    camera_indices = {0: "front", 2: "top"}  
     obs = {
         'qpos': pos,
-        'images': {name: capture_image(index) for index, name in camera_indices.items()}
+        'images': {cn: capture_image() for cn in cfg['camera_names']}
     }
 
-
-    n_rollouts = 1
+    n_rollouts = 2
 
     count_loop = 0
 
@@ -163,13 +156,13 @@ if __name__ == "__main__":
 
     # After loop ends, write actions to a file
             df = pd.DataFrame(action_list, columns=["joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7", "gripper"])
-            df.to_csv('csv/actions_cube.csv', index=False)  # Replace 'path_to_save_file' with your desired path
+            df.to_csv('actions.csv', index=False)  # Replace 'path_to_save_file' with your desired path
 
             # rospy.loginfo("Actions have been saved to file.")
 
 
-# simulator = Simulator()
+simulator = Simulator()
 
 
-# simulator.simulate()
+simulator.simulate()
 

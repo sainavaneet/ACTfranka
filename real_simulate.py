@@ -11,7 +11,7 @@ from rich.progress import Progress
 from place_traj import *
 import progressbar
 class Simulator:
-    def __init__(self, file_path='csv/actions.csv'):
+    def __init__(self, file_path='csv/actions_cube.csv'):
         
         self.franka = RobotController()
         self.kinematics = PandaWithPumpKinematics()
@@ -39,19 +39,25 @@ class Simulator:
                     self.franka.move_to_joint_position(joint_positions)
 
                     if not self.gripper_grasp_position:
-                        if gripper_position > 0.9:
-                            self.franka.exec_gripper_cmd(0.027, 0.8)
+                        if gripper_position > 1:
+                            self.franka.exec_gripper_cmd(0.055, 1)
                             self.gripper_grasp_position = True
                         else:
                             self.franka.exec_gripper_cmd(0.08, 1)
-        self.place.place_simulate()
+        self.franka.exec_gripper_cmd(0.08, 1)
+                    
+
+
+
+
+        # self.place.place_simulate()
             
 
 
 if __name__ == "__main__":
     try:
     
-        simulator = Simulator(file_path='csv/actions.csv')  
+        simulator = Simulator(file_path='csv/actions_cube.csv')  
         simulator.simulate()
     
     except rospy.ROSInterruptException:

@@ -7,8 +7,8 @@ if torch.cuda.is_available():
 os.environ['DEVICE'] = device
 
 # Paths
-CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/checkpoints'
-DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/processed/"
+CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir2/checkpoints'
+DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir2/processed/"
 
 # Initial configuration
 INITIAL_JOINTS = [0, -0.7, 0, -2.35619449, 0, 1.57079632679, 0.785398163397]
@@ -16,11 +16,11 @@ OPEN_GRIPPER_POSE = 0.08
 GRASP = 0.025
 GRIPPER_FORCE = 1
 INITIAL_GRIPPER_POSE = 0.06
-TOTAL_EPISODES = 30
+TOTAL_EPISODES = 20
 BOX_Z = 0.04
-MAX_STEPS = 223
+MAX_STEPS = 194
 
-CAMERA_NAMES = ['top']
+CAMERA_NAMES = ['top' , 'front']
 
 
 

@@ -13,6 +13,7 @@ class CameraController:
         self.robot_state_data = []
         self.recording = False
         self.franka = RobotController()
+        # self.franka.initial_pose()
 
     def capture_frames(self):
         print("Press 's' to start/stop recording. Press 'q' to quit.")
@@ -27,7 +28,7 @@ class CameraController:
                         print("Recording started.")
                     else:
                         print("Recording stopped. Saving data...")
-                        self.record_extra_frames(10) 
+                        self.record_extra_frames(5) 
                         self.save_data()
                         self.data = []
                         self.robot_state_data = []

@@ -61,8 +61,8 @@ def process_and_save_datasets(source_directory, target_directory, target_length)
             root.create_dataset('action', data=action_data)
 
 
-source_directory = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/'
-target_directory = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir/processed/'
+source_directory = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir2/'
+target_directory = '/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir2/processed/'
 target_length = find_maximum_dataset_length(source_directory, 'observations/qpos')
 print(f"Target length determined: {target_length}")
 process_and_save_datasets(source_directory, target_directory, target_length)
