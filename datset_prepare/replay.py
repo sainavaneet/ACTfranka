@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     # episode_number = input("Episode Number to replay: ")
     # hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed/episode_{episode_number}.hdf5'
-    hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/real_dir2/processed/episode_30.hdf5'
+    hdf5_path = f'/home/navaneet/Desktop/ACTfranka/ACTfranka/datasets/main/processed/episode_1.hdf5'
 
     
     group_name = 'observations'
