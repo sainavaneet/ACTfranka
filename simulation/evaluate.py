@@ -14,7 +14,7 @@ from gazebo_msgs.srv import SetModelState, SetModelStateRequest
 from controller.robot_state import *
 import random
 from std_srvs.srv import Empty
-from simulate import Simulator
+# from simulate import Simulator
 from settings.var import *
 import subprocess
 

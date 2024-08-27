@@ -6,9 +6,6 @@ import cv2
 import cv_bridge
 import os
 import h5py
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import QTimer
 from sensor_msgs.msg import Image
 from controller.robot_state import *
 from panda_kinematics import PandaWithPumpKinematics
@@ -57,12 +54,6 @@ class CameraController:
                 joint_angles.append(gripper_status)
                 self.joint_positions.append(joint_angles)
 
-                # if joint_angles[-1] == 1:  # Check if the last element (gripper status) is 1
-                #     print("####################################################")
-                #     print("### GRIPPER IS IN GRASP POSITION - STATUS: [1] ###")
-                #     print("####################################################")
-                # else:
-                #     print(f"Gripper status is [0], indicating it is open.")
 
 
     def save_data(self):
@@ -159,16 +150,18 @@ class RobotTask:
             task_id = progress.add_task("[green]Generating episodes...", total=TOTAL_EPISODES)
 
             while self.success_count < TOTAL_EPISODES:
-                self.franka.move_to_joint_position(self.initial_positions)
-                self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE)
 
-                self.camera_controller.start_recording()
-                self.camera_controller.log_box_position(self.new_x, self.new_y, BOX_Z)
+                self.franka.initial_pose() # move robot to initial pose 
 
-                pre_pick_pos, pick_pos = self.update_box_pos(self.new_x, self.new_y)
+                self.operate_gripper(OPEN_GRIPPER_POSE, GRIPPER_FORCE) # initialize gripper by opening it
+
+                self.camera_controller.start_recording() # start recording
+                self.camera_controller.log_box_position(self.new_x, self.new_y, BOX_Z) # refernce to save the box position not necessary 
+
+                pre_pick_pos, pick_pos = self.update_box_pos(self.new_x, self.new_y) 
                 orientation_quat = np.array([np.pi, np.pi/2, 0, 0], dtype=np.float64)
                 current_joint_angles = np.array(list(self.franka.angles()), dtype=np.float64)
-                solution = self.solve_kinematics(current_joint_angles, pre_pick_pos, orientation_quat)
+                solution = self.solve_kinematics(current_joint_angles, pre_pick_pos, orientation_quat) # solve kinematics and get positions to publish
 
                 if solution is None:
                     self.reset_episode()

@@ -11,7 +11,7 @@ def explore_hdf5_group(group, indent=0):
                 
                 print(f"{indent_str}  - Shape: {item.shape}, Type: {item.dtype}")
                 
-                # print(f"{indent_str}  Data: {item[...]}")
+                #print(f"{indent_str}  Data: {item[...]}") to see the data
             elif isinstance(item, h5py.Group):
                 explore_hdf5_group(item, indent + 1)
     except AttributeError:

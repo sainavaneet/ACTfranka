@@ -30,7 +30,7 @@ class RobotController:
         
         position = sum(self.gripper_positions)
 
-        rospy.loginfo(f"Average gripper position: {position}")
+        rospy.loginfo(f"gripper distance: {position}")
         return position
 
 
