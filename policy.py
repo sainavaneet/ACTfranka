@@ -10,7 +10,7 @@ class ACTPolicy(nn.Module):
     def __init__(self, args_override):
         super().__init__()
         model, optimizer = build_ACT_model_and_optimizer(args_override)
-        self.model = model # CVAE decoder
+        self.model = model # CVAE decoder conditional Variational Auto encoder
         self.optimizer = optimizer
         self.kl_weight = args_override['kl_weight']
         print(f'KL Weight {self.kl_weight}')
@@ -29,8 +29,8 @@ class ACTPolicy(nn.Module):
             loss_dict = dict()
             all_l1 = F.l1_loss(actions, a_hat, reduction='none')
             l1 = (all_l1 * ~is_pad.unsqueeze(-1)).mean()
-            loss_dict['l1'] = l1
-            loss_dict['kl'] = total_kld[0]
+            loss_dict['l1'] = l1 # regression loss 
+            loss_dict['kl'] = total_kld[0] # Mean squared loss or kl divergence
             loss_dict['loss'] = loss_dict['l1'] + loss_dict['kl'] * self.kl_weight
             return loss_dict
         else: # inference time

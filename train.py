@@ -125,6 +125,7 @@ if __name__ == '__main__':
     # load data
     train_dataloader, val_dataloader, stats, _ = load_data(data_dir, num_episodes, task_cfg['camera_names'],
                                                             train_cfg['batch_size_train'], train_cfg['batch_size_val'])
+
     # save stats
     stats_path = os.path.join(checkpoint_dir, f'dataset_stats.pkl')
     with open(stats_path, 'wb') as f:
@@ -132,3 +133,13 @@ if __name__ == '__main__':
 
     # train
     train_bc(train_dataloader, val_dataloader, policy_config)
+
+
+    '''
+    The data loader is very important bcs we are pluging our input data here 
+
+    The data lodaer like an iterator or a smampler that samples each part of the data
+
+    were we will have the training data validation data and statastics which is just to normalize our data
+
+    '''

@@ -124,7 +124,7 @@ def load_data(dataset_dir, num_episodes, camera_names, batch_size_train, batch_s
     norm_stats = get_norm_stats(dataset_dir, num_episodes)
 
     # construct dataset and dataloader
-    train_dataset = EpisodicDataset(train_indices, dataset_dir, camera_names, norm_stats)
+    train_dataset = EpisodicDataset(train_indices, dataset_dir, camera_names, norm_stats) ###------------------------------- here the dataloader
     val_dataset = EpisodicDataset(val_indices, dataset_dir, camera_names, norm_stats)
     print("Number of samples in dataset:", len(train_dataset))
 

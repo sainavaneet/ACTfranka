@@ -11,7 +11,7 @@ This repository provides a comprehensive guide to using the ACT imitation learni
 ## Installation
 Clone the repository to your local machine:
 ```bash
-git clone https://github.com/your-github-repository/ACTfranka.git
+git clone https://github.com/sainavaneet/ACTfranka.git
 cd ACTfranka
 ```
 
