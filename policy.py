@@ -30,7 +30,7 @@ class ACTPolicy(nn.Module):
             all_l1 = F.l1_loss(actions, a_hat, reduction='none')
             l1 = (all_l1 * ~is_pad.unsqueeze(-1)).mean()
             loss_dict['l1'] = l1 # regression loss 
-            loss_dict['kl'] = total_kld[0] # Mean squared loss or kl divergence
+            loss_dict['kl'] = total_kld[0] #
             loss_dict['loss'] = loss_dict['l1'] + loss_dict['kl'] * self.kl_weight
             return loss_dict
         else: # inference time

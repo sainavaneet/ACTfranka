@@ -20,7 +20,7 @@ TOTAL_EPISODES = 20
 BOX_Z = 0.04
 MAX_STEPS = 149
 
-CAMERA_NAMES = ['top']
+CAMERA_NAMES = ['top' , 'front']
 
 
 
