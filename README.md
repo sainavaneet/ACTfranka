@@ -1,3 +1,7 @@
+It looks like the code block in your Markdown is not closed properly, which can lead to formatting issues. Let me fix that for you and ensure that the overall structure is more visually appealing and correct.
+
+Here’s the revised version:
+
 ```markdown
 # ACT Imitation Learning Framework for Franka Robot
 
@@ -11,6 +15,7 @@ Ensure you have the following installed:
 
 ## 🚀 Installation
 To get started with the ACT imitation learning framework, follow these steps:
+
 ```bash
 git clone https://github.com/sainavaneet/ACTfranka.git
 cd ACTfranka
