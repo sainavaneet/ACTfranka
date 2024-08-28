@@ -1,8 +1,12 @@
 
 # ACT Imitation Learning Framework for Franka Robot
 
-Welcome to the ACT imitation learning framework repository, designed for the Franka robot. This guide covers both simulated and real-world environment setups, and includes utilities for environment setup, training, and inference.
+**Welcome to the ACT imitation learning framework repository, designed for the Franka robot. This guide covers both simulated and real-world environment setups, and includes utilities for environment setup, training, and inference.**
 
+We have modified the original ACT code from [this repo](https://github.com/tonyzhaozh/act.git) to complete this project, enhancing its capabilities to better suit our specific application needs.
+
+
+Feel free to adjust the wording or placement of the statement as per your requirements!
 > **website** - https://sainavaneet.github.io/ACTfranka.github.io/
 
 ## 📋 Prerequisites
