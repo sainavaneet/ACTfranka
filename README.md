@@ -1,8 +1,4 @@
-It looks like the code block in your Markdown is not closed properly, which can lead to formatting issues. Let me fix that for you and ensure that the overall structure is more visually appealing and correct.
 
-Here’s the revised version:
-
-```markdown
 # ACT Imitation Learning Framework for Franka Robot
 
 Welcome to the ACT imitation learning framework repository, designed for the Franka robot. This guide covers both simulated and real-world environment setups, and includes utilities for environment setup, training, and inference.
