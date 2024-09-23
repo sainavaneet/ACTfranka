@@ -62,4 +62,4 @@ To deploy on a real Franka robot, navigate to the `real_robot` directory. Script
 
 ## 🆘 Support
 For any issues or further questions, please open an issue on the [GitHub repository](https://github.com/sainavaneet/ACTfranka).
-```
+
