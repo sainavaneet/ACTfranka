@@ -8,7 +8,7 @@ os.environ['DEVICE'] = device
 
 # Paths
 CHECKPOINT_DIR = '/home/navaneet/Desktop/ACTfranka/ACTfranka/demo/checkpoints'
-DATASET_DIR = "/home/navaneet/Desktop/ACTfranka/ACTfranka/demo/"
+DATASET_DIR = "ACTfranka/real_dir2/processed"
 
 # Initial configuration
 INITIAL_JOINTS = [0, -0.7, 0, -2.35619449, 0, 1.57079632679, 0.785398163397]
@@ -20,7 +20,7 @@ TOTAL_EPISODES = 20
 BOX_Z = 0.04
 MAX_STEPS = 149
 
-CAMERA_NAMES = ['top' , 'front']
+CAMERA_NAMES = ['top']
 
 
 
@@ -57,7 +57,7 @@ POLICY_CONFIG = {
 # Training configuration
 TRAIN_CONFIG = {
     'seed': 42,
-    'num_epochs': 20000,
+    'num_epochs': 2000,
     'batch_size_val': 8,
     'batch_size_train': 8,
     'eval_ckpt_name': 'policy_last.ckpt',

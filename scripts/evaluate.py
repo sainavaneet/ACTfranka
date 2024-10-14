@@ -130,8 +130,6 @@ if __name__ == "__main__":
 
             
 
-
-
                 ### post-process actions
                 raw_action = raw_action.squeeze(0).cpu().numpy()
                 action = post_process(raw_action)
