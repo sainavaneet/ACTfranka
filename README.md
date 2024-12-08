@@ -1,5 +1,5 @@
 
-# ACTFranka: Action chunk trandformer on franka robot
+# ACTFranka: Action chunk transformer on franka robot
 
 **Welcome to the ACTFranka repository, designed for the Franka robot. This guide covers both simulated and real-world environment setups, and includes utilities for environment setup, training, and inference.**
 
