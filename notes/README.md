@@ -37,6 +37,24 @@ HDF5 file contents:
     - top: <HDF5 dataset "top": shape (149, 480, 640, 3), type "|u1">
   - qpos: <HDF5 dataset "qpos": shape (149, 8), type "<f8">
 ```
+### GAZEBO
+Camera setting: 
+            front camera:
+                         x = 0.8
+                         y = 0 
+                         z = 0.4
+                         r = 3.14
+                         p = 2.355
+                         y = 0
+
+            top camera   :
+                            x = 0.4
+                            y = 0
+                            z = 1.2
+                            r = 0
+                            p = 1.57
+                            y = 0
+
 
 ### Replay Episodes
 Use the Jupyter notebook `dataset_prepare/replay.ipynb` to replay recorded episodes by specifying the episode path.
