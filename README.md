@@ -47,6 +47,13 @@ HDF5 file contents:
   - qpos: <HDF5 dataset "qpos": shape (149, 8), type "<f8">
 ```
 
+### For panda_kinematics
+
+Use this repo 
+```
+https://github.com/roboticsleeds/panda_ik
+```
+
 ### Replay Episodes
 Utilize the Jupyter notebook `dataset_prepare/replay.ipynb` to replay recorded episodes by specifying the episode path.
 
