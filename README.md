@@ -62,7 +62,7 @@ Use this repo
 https://github.com/roboticsleeds/panda_ik
 
 ```
-- after ./build.sh TODO: for panda_ik copy to /home/.local/lib/python3.8/site-packages
+- after ./build.sh TODO: for panda_ik copy to /home/$user/.local/lib/python3.8/site-packages
 
 ### Replay Episodes
 Utilize the Jupyter notebook `dataset_prepare/replay.ipynb` to replay recorded episodes by specifying the episode path.
