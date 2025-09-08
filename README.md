@@ -32,7 +32,7 @@ pip install -r requirments.txt
 
 ## 🏗 Step 1: Create the Environment
 1. **Setup a simulated environment** in Gazebo using the Franka robot and the `libfranka` package.
-2. LINK : https://drive.google.com/uc?id=1yIaI9Ndl1dIDdq8fLU3-7SlktDi84qVf
+2. LINK : https://drive.google.com/file/d/1yIaI9Ndl1dIDdq8fLU3-7SlktDi84qVf/view?usp=sharing
 3. **Record episodes** using the script located at `simulation/record_episodes.py`.
    - Make sure the dataset path is correctly set in `settings/var.py`.
 
